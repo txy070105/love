@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>我想你了 ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #ffeef5;
+      cursor: pointer;
+      font-family: "Microsoft YaHei", sans-serif;
+    }
+
+    .message {
+      position: fixed;
+      color: #ff69b4;
+      font-size: 20px;
+      font-weight: bold;
+      user-select: none;
+      pointer-events: none;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      opacity: 0;
+      animation: floatUp 6s forwards;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body onclick="createMessages()">
+
+<script>
+  function createMessages() {
+    const count = 99; // 和你的程序一样，99个
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        const msg = document.createElement('div');
+        msg.className = 'message';
+        msg.innerText = '我想你了！';
+
+        // 随机水平位置（全屏）
+        const left = Math.random() * window.innerWidth;
+        msg.style.left = `${left}px`;
+        msg.style.top = `${window.innerHeight}px`; // 从底部开始
+
+        document.body.appendChild(msg);
+
+        // 3秒后自动移除，防止内存堆积
+        setTimeout(() => {
+          if (msg.parentNode) msg.parentNode.removeChild(msg);
+        }, 6000);
+      }, i * 50); // 稍微错开时间，更有动感
+    }
+  }
+
+  // 页面加载时提示用户点击
+  window.onload = () => {
+    const tip = document.createElement('div');
+    tip.innerText = '❤️ 点击屏幕，看我想你多少次...';
+    tip.style.position = 'fixed';
+    tip.style.bottom = '20px';
+    tip.style.left = '50%';
+    tip.style.transform = 'translateX(-50%)';
+    tip.style.color = '#ff69b4';
+    tip.style.fontSize = '18px';
+    tip.style.textAlign = 'center';
+    tip.style.pointerEvents = 'none';
+    document.body.appendChild(tip);
+  };
+</script>
+
+</body>
+</html>
